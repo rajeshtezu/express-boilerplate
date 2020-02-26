@@ -8,7 +8,7 @@ import YAML from 'yamljs';
 import indexRouter from './src/routes/index';
 import usersRouter from './src/routes/users';
 
-// const swaggerDocument = import('./swagger.json'); // OPTION-01 : Can use multiple json through swaggerOptions as mentioned below 
+const swaggerDocument = import('./swagger.json'); // OPTION-01 : Can use multiple json through swaggerOptions as mentioned below 
 // const swaggerDocument = YAML.load('./swagger.yaml'); // OPTION-02 : Better as we can import one yaml inside another
 const app = express();
 
@@ -24,8 +24,11 @@ const options = {
   }
 }
 
-app.use('/explorer', swaggerUi.serve, swaggerUi.setup(undefined, options));
-// app.use('/explorer', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// app.use('/explorer', swaggerUi.serve, swaggerUi.setup(undefined, options));
+swaggerDocument.then(document => {
+  app.use('/explorer', swaggerUi.serve, swaggerUi.setup(document));
+});
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
