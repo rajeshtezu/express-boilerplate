@@ -1,4 +1,4 @@
-{
+export const swaggerDoc = {
   "openapi": "3.0.2",
   "info": {
     "title": "User API",
@@ -17,4 +17,4 @@
       }
     }
   }
-}
+};
